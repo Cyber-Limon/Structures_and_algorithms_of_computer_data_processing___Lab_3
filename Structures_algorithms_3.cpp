@@ -46,7 +46,7 @@ void tree_output(Knot sorted_sample[], int size_sample) {
 	int i = 0;
 	int n = 0;
 	Knot knot = sorted_sample[n];
-	
+
 	while (n != size_sample) {
 		Knot knot = sorted_sample[n];
 
@@ -77,7 +77,7 @@ void tree_output(Knot sorted_sample[], int size_sample) {
 		}
 
 		cout << knot.value;
-		
+
 		if (knot.right != nullptr) {
 			indents((knot.right->value - knot.value) * 2 - 1, 2);
 		}
@@ -98,14 +98,26 @@ void tree_output(Knot sorted_sample[], int size_sample) {
 
 
 
-void tree_traversal(Knot& knot) {
+void NLR(Knot& knot) {
 	cout << knot.value << " ";
-	
-	if (knot.left != nullptr) 
-		tree_traversal(*knot.left);
+
+	if (knot.left != nullptr)
+		NLR(*knot.left);
 
 	if (knot.right != nullptr)
-		tree_traversal(*knot.right);
+		NLR(*knot.right);
+}
+
+
+
+void LRN(Knot& knot) {
+	if (knot.left != nullptr)
+		LRN(*knot.left);
+
+	if (knot.right != nullptr)
+		LRN(*knot.right);
+
+	cout << knot.value << " ";
 }
 
 
@@ -157,18 +169,24 @@ int main() {
 
 
 	cout << "\n\nПостроенное дерево:\n";
-		
+
 	sorted_sample[0] = sample[0];
 	tree_output(sorted_sample, size_sample);
 
 
 
-	cout << "\n\nПрямой обход дерева:\n";
+	cout << "\n\nNLR: ";
 
-	tree_traversal(sample[0]);
+	NLR(sample[0]);
 
 
 
+	cout << "\n\nLRN: ";
+
+	LRN(sample[0]);
+	
+
+	
 	cout << "\n\n\n\n";
 	system("pause");
 }
